@@ -1,7 +1,7 @@
 <template>
   <main class="flex">
-    <MainForm />
-    <MainContent />
+    <FormMain />
+    <ProductList />
   </main>
 </template>
 
