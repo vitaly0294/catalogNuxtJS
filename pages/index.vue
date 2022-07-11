@@ -1,5 +1,8 @@
 <template>
-  <Tutorial />
+  <div class="container">
+    <HeaderCatalog />
+    <MainCatalog />
+  </div>
 </template>
 
 <script>
