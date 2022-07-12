@@ -41,23 +41,7 @@ export default {
 
   computed: {
     getPrice () {
-      const price = this.price.split('')
-      const indent = Math.floor(price.length / 3)
-
-      if (indent) {
-        const res = []
-        price.reverse().forEach((item, index) => {
-          if ((index + 1) % 3 !== 0) {
-            res.push(item)
-          } else {
-            res.push(item)
-            res.push(' ')
-          }
-        })
-        return res.reverse().join('')
-      } else {
-        return price
-      }
+      return Number(this.price).toLocaleString()
     }
   },
 

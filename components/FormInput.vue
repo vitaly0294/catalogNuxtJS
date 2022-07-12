@@ -14,13 +14,16 @@
       <input
         v-else
         :id="name"
-        class="field"
+        :class="error ? 'field warn_active' : 'field'"
         type="text"
         :value="value"
         :placeholder="placeholder"
         @input="setListener"
       >
     </label>
+    <span v-if="error" class="item-after">
+      Поле является обязательным
+    </span>
   </div>
 </template>
 
@@ -57,13 +60,25 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    error: {
+      type: Boolean,
+      default: false
     }
   },
 
   methods: {
     setListener (event) {
+      this.replacePrice(event)
       const value = event.target.value
       this.$emit('input', value)
+    },
+
+    replacePrice (event) {
+      if (event.target.id === 'price') {
+        const str = event.target.value.replace(/\s/g, '')
+        event.target.value = str.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+      }
     }
   }
 }
@@ -134,12 +149,11 @@ export default {
       color: #FF8484 !important;
     }
 
-    &:after {
-      content: 'Поле является обязательным';
+    .item-after {
       position: absolute;
-      bottom: 4px;
+      bottom: 2px;
       left: 0;
-      display: none;
+      display: block;
       width: 100%;
       font-size: 8px;
       line-height: 10px;

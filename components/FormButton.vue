@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      class="button button_active"
+      :class="button ? 'button button_active' : 'button'"
       @click.prevent="addToCatalog"
     >
       Добавить товар
@@ -13,9 +13,16 @@
 export default {
   name: 'FormButton',
 
+  props: {
+    button: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   methods: {
     addToCatalog () {
-      this.$emit('addToCatalog')
+      if (this.button) { this.$emit('addToCatalog') }
     }
   }
 }

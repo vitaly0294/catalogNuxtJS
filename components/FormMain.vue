@@ -4,18 +4,21 @@
       <FormInput
         v-for="(input, i) in inputs"
         :key="i"
-        ref="form"
-        v-model="input.value"
+        v-model.trim="input.value"
         :name="input.name"
         :tag="input.tag"
         :description="input.description"
         :placeholder="input.placeholder"
         :required="input.required"
+        :error="input.error"
+        @input="checkFiling(i)"
       />
 
       <FormButton
+        :button="button"
         @addToCatalog="addToCatalog"
       />
+      https://google.com/image.jpg
     </form>
   </article>
 </template>
@@ -33,7 +36,8 @@ export default {
           description: 'Наименование товара',
           placeholder: 'Введите наименование товара',
           required: true,
-          value: ''
+          value: '',
+          error: false
         },
         {
           name: 'description',
@@ -49,7 +53,8 @@ export default {
           description: 'Ссылка на изображение товара',
           placeholder: 'Введите ссылку',
           required: true,
-          value: ''
+          value: '',
+          error: false
         },
         {
           name: 'price',
@@ -57,17 +62,34 @@ export default {
           description: 'Цена товара',
           placeholder: 'Введите цену',
           required: true,
-          value: ''
+          value: '',
+          error: false
         }
-      ]
+      ],
+
+      button: false
     }
   },
 
   methods: {
+    checkFiling (i) {
+      let checkButton = true
+      this.inputs[i].error = false
+      this.inputs.forEach((input) => {
+        if ((input.value === '' && input.required) || input.error) {
+          checkButton = false
+        }
+      })
+      this.button = checkButton
+    },
+
     addToCatalog () {
       const newCard = this.getNewData()
-      this.$store.commit('main/pushCard', newCard)
-      this.resetForm()
+      if (this.checkForm()) {
+        this.$store.commit('main/pushCard', newCard)
+        this.resetForm()
+        this.button = false
+      }
     },
 
     resetForm () {
@@ -79,9 +101,64 @@ export default {
     getNewData () {
       const newCard = {}
       this.inputs.forEach((item) => {
+        if (item.name === 'price') {
+          item.value = item.value.replace(/\s/g, '')
+        }
         newCard[`${item.name}`] = item.value
       })
       return newCard
+    },
+
+    checkForm () {
+      const res = []
+      this.inputs.forEach((input) => {
+        if (input.name === 'name') {
+          if (this.validName(input)) { res.push(1) }
+        }
+        if (input.name === 'link') {
+          if (this.validLink(input)) { res.push(1) }
+        }
+        if (input.name === 'price') {
+          if (this.validPrice(input)) { res.push(1) }
+        }
+      })
+
+      return (res.length === 0)
+    },
+
+    validName (input) {
+      const pattern = /^[А-Яа-я]{2,}$/
+      if (pattern.test(input.value)) {
+        input.error = false
+      } else {
+        input.error = true
+        this.button = false
+      }
+      return input.error
+    },
+
+    validLink (input) {
+      const pattern = /(http|https):\/\/([\w.]+\/?)\S*/
+      if (pattern.test(input.value)) {
+        input.error = false
+      } else {
+        input.error = true
+        this.button = false
+      }
+
+      return input.error
+    },
+
+    validPrice (input) {
+      const pattern = /^[0-9]{1,}$/
+      if (pattern.test(input.value)) {
+        input.error = false
+      } else {
+        input.error = true
+        this.button = false
+      }
+
+      return input.error
     }
   }
 }
