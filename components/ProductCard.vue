@@ -34,14 +34,14 @@ export default {
       default: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк'
     },
     price: {
-      type: Number,
-      default: 1
+      type: String,
+      default: '1'
     }
   },
 
   computed: {
     getPrice () {
-      const price = ('' + this.price).split('')
+      const price = this.price.split('')
       const indent = Math.floor(price.length / 3)
 
       if (indent) {

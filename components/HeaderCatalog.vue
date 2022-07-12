@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="header">
     <h2 class="title">
       Добавление товара
     </h2>
+
+    <HeaderSelect />
   </div>
 </template>
 
@@ -14,8 +16,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .title {
-    margin-top: 16px;
-    margin-left: 16px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      margin-top: 16px;
+      margin-left: 16px;
+    }
   }
+
 </style>

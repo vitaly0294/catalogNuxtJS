@@ -2,20 +2,23 @@
   <div :class="required ? 'item required-field' : 'item'">
     <p>{{ description }}</p>
     <label :for="name" class="label">
-      <p>{{ placeholder }}</p>
       <textarea
         v-if="tag"
         :id="name"
         class="field textarea"
         type="text"
-        @input="$emit('input', $event.target.value)"
+        :value="value"
+        :placeholder="placeholder"
+        @input="setListener"
       />
       <input
         v-else
         :id="name"
         class="field"
         type="text"
-        @input="$emit('input', $event.target.value)"
+        :value="value"
+        :placeholder="placeholder"
+        @input="setListener"
       >
     </label>
   </div>
@@ -50,20 +53,19 @@ export default {
     required: {
       type: Boolean,
       default: true
+    },
+    value: {
+      type: String,
+      default: ''
     }
   },
 
-  data () {
-    return {
-      value: ''
+  methods: {
+    setListener (event) {
+      const value = event.target.value
+      this.$emit('input', value)
     }
   }
-
-  // methods: {
-  //   togglePlaceholder() {
-
-  //   }
-  // }
 }
 </script>
 
@@ -112,14 +114,10 @@ export default {
         &:focus {
           outline: 1px solid #DCDCDC;
         }
-      }
 
-      > p {
-        position: absolute;
-        top: 11px;
-        left: 16px;
-        color: #B4B4B4;
-        cursor: text;
+        &::placeholder {
+          color: #B4B4B4;
+        }
       }
 
       > .textarea{

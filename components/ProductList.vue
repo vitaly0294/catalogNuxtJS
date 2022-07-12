@@ -8,7 +8,6 @@
         :name="product.name"
         :description="product.description"
         :price="product.price"
-        @addToCatalog="addToCatalog"
         @removeCard="removeCard(index)"
       />
     </ul>
@@ -21,46 +20,12 @@ export default {
 
   data () {
     return {
-      products: [
-        {
-          name: 'Наименование товара',
-          description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price: 10000
-        },
-        {
-          link: 'https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg',
-          name: 'Наименование товара',
-          description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price: 10000
-        },
-        {
-          link: 'https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg',
-          name: 'Наименование товара',
-          description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price: 10000
-        },
-        {
-          link: 'https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg',
-          name: 'Наименование товара',
-          description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price: 10000
-        },
-        {
-          link: 'https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg',
-          name: 'Наименование товара',
-          description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price: 10000
-        }
-      ]
+      products: this.$store.state.main.products
     }
   },
   methods: {
-    addToCatalog () {
-      console.log(2)
-    },
-
     removeCard (index) {
-      console.log(index)
+      this.$store.commit('main/removeCard', index)
     }
   }
 }

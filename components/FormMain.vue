@@ -1,9 +1,10 @@
 <template>
   <article class="form-wrap">
-    <form class="form">
+    <form id="form" class="form">
       <FormInput
         v-for="(input, i) in inputs"
         :key="i"
+        ref="form"
         v-model="input.value"
         :name="input.name"
         :tag="input.tag"
@@ -65,7 +66,14 @@ export default {
   methods: {
     addToCatalog () {
       const newCard = this.getNewData()
-      this.$emit('addToCatalog', newCard)
+      this.$store.commit('main/pushCard', newCard)
+      this.resetForm()
+    },
+
+    resetForm () {
+      this.inputs.forEach((item) => {
+        item.value = ''
+      })
     },
 
     getNewData () {
