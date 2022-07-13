@@ -19,9 +19,19 @@ export default {
   .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
     .title {
-      margin-top: 16px;
       margin-left: 16px;
+
+      @media (max-width: 767px) {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      @media (max-width: 374px) {
+        width: 150px;
+      }
     }
   }
 

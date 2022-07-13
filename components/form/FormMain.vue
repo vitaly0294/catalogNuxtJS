@@ -18,7 +18,7 @@
         :button="button"
         @addToCatalog="addToCatalog"
       />
-      https://google.com/image.jpg
+      <!-- https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg -->
     </form>
   </article>
 </template>
@@ -89,6 +89,7 @@ export default {
         this.$store.commit('main/pushCard', newCard)
         this.resetForm()
         this.button = false
+        this.$emit('showPopUp')
       }
     },
 
@@ -96,6 +97,10 @@ export default {
       this.inputs.forEach((item) => {
         item.value = ''
       })
+    },
+
+    getRandomKey () {
+      return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     },
 
     getNewData () {
@@ -106,6 +111,7 @@ export default {
         }
         newCard[`${item.name}`] = item.value
       })
+      newCard.keyId = this.getRandomKey()
       return newCard
     },
 

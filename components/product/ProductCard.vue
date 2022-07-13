@@ -36,6 +36,10 @@ export default {
     price: {
       type: String,
       default: '1'
+    },
+    keyId: {
+      type: String,
+      default: ''
     }
   },
 
@@ -54,12 +58,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @keyframes buttonDeleteHover {
+  @keyframes showButtonDeleteHover {
     0% {
       transform: scale(0);
     }
     100% {
       transform: scale(1);
+    }
+  }
+
+  @keyframes hideButtonDeleteHover {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
     }
   }
 
@@ -100,12 +113,12 @@ export default {
 
     &:hover .button-delete {
       display: block;
-      animation: buttonDeleteHover .3s;
+      animation: showButtonDeleteHover .3s;
     }
 
     &:focus .button-delete {
       display: block;
-      animation: buttonDeleteHover .3s;
+      animation: showButtonDeleteHover .3s;
     }
 
     &:hover, &:focus {
@@ -146,6 +159,16 @@ export default {
         font-weight: 400;
         font-size: 16px;
         line-height: 20px;
+        word-wrap: break-word;
+        overflow-Y: hidden;
+
+        &::-webkit-scrollbar {
+          width: 0px;
+        }
+
+        &:hover {
+          overflow-Y: auto;
+        }
       }
 
       > .price {
