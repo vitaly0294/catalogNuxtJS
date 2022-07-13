@@ -1,6 +1,11 @@
 <template>
   <li class="item" tabindex="0">
-    <img src="@/assets/images/delete.png" alt="Удалить товар" class="button-delete" @click="removeCard">
+    <img
+      src="@/assets/images/delete.png"
+      alt="Удалить товар"
+      class="button-delete"
+      @click="removeCard"
+    >
     <div class="item__img">
       <img :src="link" alt="Фото товара">
     </div>
@@ -11,7 +16,8 @@
       <p class="description">
         {{ description }}
       </p>
-      <span class="price">{{ getPrice }}</span><span class="price"> руб.</span>
+      <span class="price">{{ getPrice }}</span>
+      <span class="price"> руб.</span>
     </section>
   </li>
 </template>
@@ -50,7 +56,7 @@ export default {
   },
 
   methods: {
-    removeCard () {
+    removeCard (event) {
       this.$emit('removeCard')
     }
   }
@@ -58,6 +64,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
   @keyframes showButtonDeleteHover {
     0% {
       transform: scale(0);
@@ -81,9 +89,9 @@ export default {
     margin-bottom: 16px;
     margin-right: 16px;
     width: 332px;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
-    border-radius: 4px;
-    background: #FFFEFB;
+    box-shadow: $boxShadowTwo;
+    border-radius: $borderRadius;
+    background: $backgroundItem;
     cursor: url('@/assets/images/cursor.svg'), pointer;
     opacity: .9;
     transition: opacity .5s ease;
@@ -102,8 +110,8 @@ export default {
       right: -8px;
       display: none;
       padding: 8px;
-      background: #FF8484;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      background: $backgroundDelete;
+      box-shadow: $boxShadowThree;
       border-radius: 10px;
 
       &:hover, &:focus {
@@ -143,14 +151,14 @@ export default {
 
     &__content {
       margin: 0 16px 24px 16px;
-      color: #3F3F3F;
+      color: $colorOne;
 
       > .name {
         margin-bottom: 16px;
         font-weight: 600;
         font-size: 20px;
         line-height: 25px;
-        color: #3F3F3F;
+        color: $colorOne;
       }
 
       > .description {

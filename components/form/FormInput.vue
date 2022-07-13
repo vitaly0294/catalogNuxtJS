@@ -1,5 +1,5 @@
 <template>
-  <div :class="required ? 'item required-field' : 'item'">
+  <div :class="toggleClassRequired">
     <p>{{ description }}</p>
     <label :for="name" class="label">
       <textarea
@@ -14,7 +14,7 @@
       <input
         v-else
         :id="name"
-        :class="error ? 'field warn_active' : 'field'"
+        :class="toggleClassWarn"
         type="text"
         :value="value"
         :placeholder="placeholder"
@@ -67,6 +67,16 @@ export default {
     }
   },
 
+  computed: {
+    toggleClassRequired () {
+      return this.required ? 'item required-field' : 'item'
+    },
+
+    toggleClassWarn () {
+      return this.error ? 'field warn_active' : 'field'
+    }
+  },
+
   methods: {
     setListener (event) {
       this.replacePrice(event)
@@ -85,6 +95,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
   .item {
     position: relative;
     display: flex;
@@ -101,7 +113,7 @@ export default {
       font-size: 10px;
       line-height: 13px;
       letter-spacing: -0.02em;
-      color: #49485E;
+      color: $colorInputDiscription;
     }
 
     > .label {
@@ -116,10 +128,10 @@ export default {
         width: 100%;
         height: 36px;
 
-        background: #FFFEFB;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        background: $backgroundInput;
+        box-shadow: $boxShadowOne;
         border: none;
-        border-radius: 4px;
+        border-radius: $borderRadius;
 
         font-family: inherit;
         font-size: inherit;
@@ -131,7 +143,7 @@ export default {
         }
 
         &::placeholder {
-          color: #B4B4B4;
+          color: $colorPlaceholderInput;
         }
       }
 
@@ -145,8 +157,8 @@ export default {
 
   .required-field {
     .warn_active {
-      border: 1px solid #FF8484 !important;
-      color: #FF8484 !important;
+      border: 1px solid $сolorInputWarn !important;
+      color: $сolorInputWarn !important;
     }
 
     .item-after {
@@ -158,7 +170,7 @@ export default {
       font-size: 8px;
       line-height: 10px;
       letter-spacing: -0.02em;
-      color: #FF8484;
+      color: $сolorInputWarn;
     }
 
     > p:before {
@@ -169,8 +181,8 @@ export default {
       display: block;
       width: 4px;
       height: 4px;
-      background: #FF8484;
-      border-radius: 4px;
+      background: $сolorInputWarn;
+      border-radius: $borderRadius;
     }
   }
 </style>

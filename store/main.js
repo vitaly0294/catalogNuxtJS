@@ -3,13 +3,17 @@ export const state = () => ({
   sort: 'none'
 })
 
+// const loadData = () => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(JSON.parse(localStorage.getItem('products')))
+//     }, 3000)
+//   })
+// }
+
 export const mutations = {
   pushCard (state, newCard) {
     state.products.push(newCard)
-    // if (state.sort !== 'none') {
-    //   this.sortCards(state, this.sort)
-    //   console.log(121)
-    // }
   },
 
   removeCard (state, id) {
@@ -23,7 +27,6 @@ export const mutations = {
         if (a.name < b.name) { return -1 }
         return 1
       })
-      // this.setSort(state, unit)
     }
 
     if (unit === 'min') {
@@ -33,15 +36,16 @@ export const mutations = {
     if (unit === 'max') {
       state.products.sort((a, b) => b.price - a.price)
     }
-
-    // resultsTable.sort((a, b) => a[0] - b[0]);
-    // if (unit === 'name') {
-    //   resultsTable.sort((a, b) => {
-    //     if (a[1] > b[1]) return 1;
-    //     if (a[1] < b[1]) return -1;
-    //     if (a[1] === b[1]) return 1;
-    //   });
-    // }
-    // if (unit === 'score') resultsTable.sort((a, b) => b[3] - a[3]);
   }
 }
+
+// export const actions = {
+//   async loadData () {
+//     try {
+//       const product = await loadData()
+//       console.log(product)
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// }

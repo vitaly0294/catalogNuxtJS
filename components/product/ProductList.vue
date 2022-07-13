@@ -2,13 +2,13 @@
   <article class="content-wrap">
     <transition-group name="list" class="items" tag="ul">
       <ProductCard
-        v-for="(product) in products"
+        v-for="(product, index) in products"
         :key="product.keyId"
         :link="product.link"
         :name="product.name"
         :description="product.description"
         :price="product.price"
-        @removeCard="removeCard(product.keyId)"
+        @removeCard="removeCard(index)"
       />
     </transition-group>
   </article>
@@ -39,6 +39,10 @@ export default {
       })
     }
   },
+
+  // created () {
+  //   this.$store.dispatch('loadData')
+  // },
 
   methods: {
     removeCard (id) {

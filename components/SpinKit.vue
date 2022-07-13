@@ -24,6 +24,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
   @keyframes sk-circle-bounce-delay {
     0%, 80%, 100% {
       transform: scale(0);
@@ -40,7 +42,7 @@ export default {
     width: 100%;
     height: 100%;
     opacity: .7;
-    background: rgb(204, 204, 204); // <---
+    background: $spinkit-backgruond;
   }
 
   .sk-circle-bounce {
@@ -49,8 +51,8 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 50px; // <---
-    height: 50px; // <---
+    width: $spinkit-size;
+    height: $spinkit-size;
 
     .sk-child {
       width: 100%;
@@ -66,20 +68,20 @@ export default {
       margin: 0 auto;
       width: 15%;
       height: 15%;
-      background-color: rgb(135, 133, 133); // <---
+      background-color: $spinkit-spinner-color;
       border-radius: 100%;
-      animation: sk-circle-bounce-delay 1.2s infinite ease-in-out both; // <---
+      animation: sk-circle-bounce-delay $animationDuration infinite ease-in-out both;
     }
 
-    @for $i from 2 through 12 { // <---
+    @for $i from 2 through $circleCount {
       .sk-circle-#{$i} {
-        transform: rotate((360deg / 12 * ($i - 1))); // <---
+        transform: rotate((calc(360deg / $circleCount) * ($i - 1)));
       }
     }
 
-    @for $i from 2 through 12 { // <---
+    @for $i from 2 through $circleCount {
       .sk-circle-#{$i}:before {
-        animation-delay: (-1.2s + 1.2s / 12 * ($i - 1)); // <---
+        animation-delay: (-$animationDuration + calc($animationDuration / $circleCount) * ($i - 1));
       }
     }
   }

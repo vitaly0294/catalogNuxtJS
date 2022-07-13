@@ -1,20 +1,20 @@
 <template>
   <div class="select">
     <ul class="select-value" @click="selectionSort">
-      <li id="none" :class="id.none ? 'select-option select-option_show' : 'select-option'">
+      <li id="none" :class="toggleClassLiNone">
         По умолчанию
       </li>
-      <li id="min" :class="id.min ? 'select-option select-option_show' : 'select-option'">
+      <li id="min" :class="toggleClassLiMin">
         По цене min
       </li>
-      <li id="max" :class="id.max ? 'select-option select-option_show' : 'select-option'">
+      <li id="max" :class="toggleClassLiMax">
         По цене max
       </li>
-      <li id="name" :class="id.name ? 'select-option select-option_show' : 'select-option'">
+      <li id="name" :class="toggleClassLiName">
         По имени
       </li>
     </ul>
-    <div :class="arrowRotate ? 'arrow arrow_rotate' : 'arrow'" />
+    <div :class="toggleClassArrow" />
   </div>
 </template>
 
@@ -33,6 +33,24 @@ export default {
       select: false,
       arrowRotate: false,
       sort: false
+    }
+  },
+
+  computed: {
+    toggleClassLiNone () {
+      return this.id.none ? 'select-option select-option_show' : 'select-option'
+    },
+    toggleClassLiMin () {
+      return this.id.min ? 'select-option select-option_show' : 'select-option'
+    },
+    toggleClassLiMax () {
+      return this.id.max ? 'select-option select-option_show' : 'select-option'
+    },
+    toggleClassLiName () {
+      return this.id.name ? 'select-option select-option_show' : 'select-option'
+    },
+    toggleClassArrow () {
+      return this.arrowRotate ? 'arrow arrow_rotate' : 'arrow'
     }
   },
 
@@ -71,15 +89,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
   .select {
     position: absolute;
     top: 32px;
     right: 32px;
     width: 120px;
     height: 36px;
-    background: #FFFEFB;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+    background: $backgroundSelect;
+    box-shadow: $boxShadowOne;
+    border-radius: $borderRadius;
 
     font-weight: 400;
     font-size: 12px;

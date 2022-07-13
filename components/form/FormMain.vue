@@ -18,7 +18,6 @@
         :button="button"
         @addToCatalog="addToCatalog"
       />
-      <!-- https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg -->
     </form>
   </article>
 </template>
@@ -119,51 +118,32 @@ export default {
       const res = []
       this.inputs.forEach((input) => {
         if (input.name === 'name') {
-          if (this.validName(input)) { res.push(1) }
+          if (this.checkValidInput(input)) { res.push(1) }
         }
         if (input.name === 'link') {
-          if (this.validLink(input)) { res.push(1) }
+          if (this.checkValidInput(input)) { res.push(1) }
         }
         if (input.name === 'price') {
-          if (this.validPrice(input)) { res.push(1) }
+          if (this.checkValidInput(input)) { res.push(1) }
         }
       })
 
       return (res.length === 0)
     },
 
-    validName (input) {
-      const pattern = /^[А-Яа-я]{2,}$/
-      if (pattern.test(input.value)) {
+    checkValidInput (input) {
+      const pattern = {
+        name: /^[А-Яа-я]{2,}$/,
+        link: /(http|https):\/\/([\w.]+\/?)\S*/,
+        price: /^[0-9]{1,}$/
+      }
+
+      if (pattern[`${input.name}`].test(input.value)) {
         input.error = false
       } else {
         input.error = true
         this.button = false
       }
-      return input.error
-    },
-
-    validLink (input) {
-      const pattern = /(http|https):\/\/([\w.]+\/?)\S*/
-      if (pattern.test(input.value)) {
-        input.error = false
-      } else {
-        input.error = true
-        this.button = false
-      }
-
-      return input.error
-    },
-
-    validPrice (input) {
-      const pattern = /^[0-9]{1,}$/
-      if (pattern.test(input.value)) {
-        input.error = false
-      } else {
-        input.error = true
-        this.button = false
-      }
-
       return input.error
     }
   }
@@ -172,6 +152,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
   .form-wrap {
     position: sticky;
     top: 24px;
@@ -184,9 +166,9 @@ export default {
     .form {
       padding: 24px;
       width: 332px;
-      background: #FFFEFB;
-      box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
-      border-radius: 4px;
+      background: $backgroundInput;
+      box-shadow: $boxShadowTwo;
+      border-radius: $borderRadius;
 
       @media (max-width: 374px) {
         width: 300px;

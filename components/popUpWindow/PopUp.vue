@@ -14,6 +14,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
   .popup {
     position: fixed;
     top: 0;
@@ -23,13 +25,13 @@ export default {
     align-items: center;
     width: 100%;
     height: 100%;
-    background: rgba(229, 229, 229, .3);
+    background: $backgraundPopUp;
 
     .message {
       padding: 32px;
-      background: rgba(218, 217, 217, .7);
-      box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
-      border-radius: 4px;
+      background: $backgraundPopUpMessage;
+      box-shadow: $boxShadowTwo;
+      border-radius: $borderRadius;
     }
   }
 
