@@ -12,3 +12,6 @@ $ npm run dev
 # build for production and launch server
 $ npm run build
 $ npm run start
+
+#node v
+v16.1.0
