@@ -19,6 +19,24 @@ export const getters = {
   getSpinkit (state) {
     return state.spinkit
   }
+
+  // getSortCards (state, unit = 'none') {
+  //   if (unit === 'name') {
+  //     state.products.sort((a, b) => {
+  //       if (a.name > b.name) { return 1 }
+  //       if (a.name < b.name) { return -1 }
+  //       return 1
+  //     })
+  //   }
+
+  //   if (unit === 'min') {
+  //     state.products.sort((a, b) => a.price - b.price)
+  //   }
+
+  //   if (unit === 'max') {
+  //     state.products.sort((a, b) => b.price - a.price)
+  //   }
+  // }
 }
 
 export const mutations = {
