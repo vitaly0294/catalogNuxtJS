@@ -1,5 +1,5 @@
 <template>
-  <div class="send">
+  <div class="get">
     <div class="sk-circle-bounce">
       <div class="sk-child sk-circle-1" />
       <div class="sk-child sk-circle-2" />
@@ -35,7 +35,7 @@ export default {
     }
   }
 
-  .send {
+  .get {
     position: fixed;
     top: 0;
     left: 0;

@@ -4,9 +4,7 @@
       @showPopUp="showPopUp"
     />
 
-    <ProductList
-      v-if="productList"
-    />
+    <ProductList />
 
     <transition name="popup">
       <PopUp
@@ -15,7 +13,7 @@
     </transition>
 
     <SpinKit
-      v-if="spinKit"
+      v-if="spinkitUp"
     />
   </main>
 </template>
@@ -27,13 +25,14 @@ export default {
   data () {
     return {
       conditionPopUp: false,
-      spinKit: true,
       productList: false
     }
   },
 
-  mounted () {
-    this.showSpinKit()
+  computed: {
+    spinkitUp () {
+      return this.$store.getters['main/getSpinkit']
+    }
   },
 
   methods: {
@@ -46,17 +45,6 @@ export default {
       }
 
       this.conditionPopUp = false
-    },
-
-    async showSpinKit () {
-      try {
-        await new Promise(resolve => setTimeout(resolve, 3000))
-      } catch (error) {
-        alert(error)
-      }
-
-      this.spinKit = false
-      this.productList = true
     }
   }
 }

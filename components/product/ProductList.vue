@@ -2,7 +2,7 @@
   <article class="content-wrap">
     <transition-group name="list" class="items" tag="ul">
       <ProductCard
-        v-for="(product, index) in products"
+        v-for="(product, index) in productsUp"
         :key="product.keyId"
         :link="product.link"
         :name="product.name"
@@ -20,29 +20,25 @@ export default {
 
   data () {
     return {
-      products: this.$store.state.main.products,
       showProduct: false
     }
   },
 
+  computed: {
+    productsUp () {
+      return this.$store.getters['main/getProducts']
+    }
+  },
+
   watch: {
-    products (value) {
+    productsUp (value) {
       localStorage.setItem('products', JSON.stringify(value))
     }
   },
 
-  mounted () {
-    const res = JSON.parse(localStorage.getItem('products'))
-    if (res) {
-      res.forEach((item) => {
-        this.$store.commit('main/pushCard', item)
-      })
-    }
+  created () {
+    this.$store.dispatch('main/loadData')
   },
-
-  // created () {
-  //   this.$store.dispatch('loadData')
-  // },
 
   methods: {
     removeCard (id) {

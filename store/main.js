@@ -1,17 +1,33 @@
 export const state = () => ({
   products: [],
-  sort: 'none'
+  spinkit: true
 })
 
-// const loadData = () => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(JSON.parse(localStorage.getItem('products')))
-//     }, 3000)
-//   })
-// }
+const loadData = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(JSON.parse(localStorage.getItem('products')))
+    }, 3000)
+  })
+}
+
+export const getters = {
+  getProducts (state) {
+    return state.products
+  },
+
+  getSpinkit (state) {
+    return state.spinkit
+  }
+}
 
 export const mutations = {
+  setCards (state, res) {
+    res.forEach((item) => {
+      state.products.push(item)
+    })
+  },
+
   pushCard (state, newCard) {
     state.products.push(newCard)
   },
@@ -36,16 +52,25 @@ export const mutations = {
     if (unit === 'max') {
       state.products.sort((a, b) => b.price - a.price)
     }
+  },
+
+  hideSpinKit (state) {
+    state.spinkit = false
   }
 }
 
-// export const actions = {
-//   async loadData () {
-//     try {
-//       const product = await loadData()
-//       console.log(product)
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
-// }
+export const actions = {
+  async loadData (context) {
+    try {
+      const product = await loadData()
+      if (product) {
+        context.commit('setCards', product)
+      } else {
+        context.commit('setCards', [])
+      }
+      context.commit('hideSpinKit')
+    } catch (error) {
+      alert(error)
+    }
+  }
+}
